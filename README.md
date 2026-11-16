@@ -1,21 +1,36 @@
 # Comerzia · Frontend
 
-React + TypeScript + Vite + Tailwind CSS. Consulta `../LEEME-FRONTEND.md` para instalación, configuración y límites de esta entrega.
+Tienda online y panel operativo con React, TypeScript, Vite y Tailwind CSS, conectado a una API NestJS.
 
-```sh
+## Preparación
+
+Requiere Node.js 24 y el backend en funcionamiento.
+
+```bash
 npm ci
-# Copia .env.example a .env y verifica la URL del backend.
+```
+
+Copia `.env.example` a `.env` y configura `VITE_API_URL` con la URL del backend, sin `/api` al final. Conserva tu configuración actual si ya existe.
+
+```bash
 npm run dev
 ```
 
-El modo oscuro es inicial. Tema persistido localmente, autenticación por JWT en sessionStorage, datos de catálogo y operaciones obtenidos de la API.
+## Compilar y verificar
 
-Estructura:
-- `src/api.ts`: cliente HTTP y errores.
-- `src/context.tsx`: sesión, tema, carrito y overlays de tienda.
-- `src/components/`: componentes compartidos y layouts.
-- `src/pages/`: tienda, checkout, pedidos y operaciones del personal.
-- `src/styles.css`: tokens de tema, estilos responsive y accesibilidad.
-- `public/images/`: recursos visuales de los diseños de Stitch.
+```bash
+npm run build
+npm test
+```
 
-Las pruebas de componentes usan respuestas simuladas; no sustituyen la prueba con tu backend y tu base de datos.
+## Organización
+
+Consulta [ORGANIZACION.md](./ORGANIZACION.md) para ubicar páginas, componentes, tipos, servicios, hooks y rutas.
+
+La autenticación se encuentra en `components/auth/`, `context/AuthProvider.tsx`, `hooks/useAuth.ts`, `services/auth.service.ts` y `services/users.service.ts`.
+
+El cambio de estructura conserva las rutas públicas, el tema claro/oscuro y las funciones de tienda y panel. La sesión sigue en sessionStorage. Los pagos son ficticios: prefijo 4040 aprobado, otros rechazados. No utilices tarjetas reales.
+
+## Publicación
+
+En Vercel: framework Vite, raíz `./`, build `npm run build`, salida `dist`. Define `VITE_API_URL` antes de compilar y autoriza el origen del frontend en CORS_ORIGINS del backend.
